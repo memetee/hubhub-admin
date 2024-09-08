@@ -9,7 +9,7 @@ const Login = memo(() => {
   const navigate = useNavigate();
   useEffect(() => {
     setOpacity(1)
-  })
+  }, [])
   const clickSubmit = function (value) {
     userLogin(value).then(res => {
       // 设置token

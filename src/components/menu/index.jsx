@@ -25,12 +25,8 @@ const items = [
   },
 ];
 const MenuCpn = memo((props) => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed] = useState(false);
   const navigate = useNavigate();
-  
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
 
   const handleMenuClick = (e) => {
     navigate(e.key, {replace: true});

@@ -12,7 +12,7 @@ const Login = memo(() => {
   useEffect(() => {
     // 界面显示延迟
     setOpacity(1)
-  })
+  }, [])
 
   // 提交注册
   const clickSubmit = (value) => {

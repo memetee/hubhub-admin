@@ -20,7 +20,7 @@ const Content = memo(() => {
         console.log(1);
         navigate("/login");
       });
-  }, []);
+  }, [navigate]);
   const taskList = [
     {
       type: "success",

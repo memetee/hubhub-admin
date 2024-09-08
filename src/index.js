@@ -1,7 +1,7 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import "normalize.css";
-import "@/assets/css/reset.less";
+import "@/assets/css/reset.css";
 import App from "./App";
 import { Provider } from "react-redux";
 import store from "./store";

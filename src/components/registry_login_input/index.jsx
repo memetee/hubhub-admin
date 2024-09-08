@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import { Button, Form, Input } from "antd";
 import { FormWrap, SubmitWrap } from './style'
 const RegistryLoginInput = memo((props) => {

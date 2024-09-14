@@ -10,8 +10,8 @@ const getOption = (data, timeList) => {
       textAlign: "center",
     },
     grid: {
-      left: 12,
-      right: 25,
+      left: 35,
+      right: 35,
     },
     tooltip: {
       trigger: "axis",
@@ -52,6 +52,7 @@ const getOption = (data, timeList) => {
       },
       axisLabel: {
         margin: 10,
+        // marginLeft: 10,
         fontSize: 10,
       },
     },
@@ -113,21 +114,13 @@ const getOption = (data, timeList) => {
     ],
   };
 };
-const PageView = memo(() => {
-	const pageViewInfo = [
-		{time: '2024-08-02', visitCount: 30},
-		{time: '2024-08-03', visitCount: 10},
-		{time: '2024-08-04', visitCount: 19},
-		{time: '2024-08-05', visitCount: 53},
-		{time: '2024-08-06', visitCount: 42},
-		{time: '2024-08-07', visitCount: 36},
-		{time: '2024-08-08', visitCount: 29}
-	]
+const PageView = memo((props) => {
+	const pageViewInfo = props.homeInfo.pageViewInfo
 	let countList = [];
 	let timeList = [];
 	pageViewInfo.forEach(item => {
-		countList.push(item.visitCount)
-		timeList.push(item.time);
+		countList.push(item.total_count)
+		timeList.push(item.date);
 	})
 
   const option = getOption(countList, timeList);

@@ -11,13 +11,14 @@ import { getHomeInfo } from "../../../services/fetch";
 const Content = memo(() => {
   const navigate = useNavigate();
   const [homeInfo, setHomeInfo] = useState({});
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     getHomeInfo()
       .then((res) => {
         setHomeInfo(res);
+        setLoading(false);
       })
       .catch(() => {
-        console.log(1);
         navigate("/login");
       });
   }, [navigate]);
@@ -43,13 +44,13 @@ const Content = memo(() => {
     },
   ];
   return (
-    <ContentWrap>
+    !loading && <ContentWrap>
       <Row justify="space-between" gutter={20} className="gutter-row">
         <Col span={8}>
           <Overview countObj={homeInfo}></Overview>
         </Col>
         <Col span={16}>
-          <DynamicStatistics></DynamicStatistics>
+          <DynamicStatistics homeInfo={homeInfo}></DynamicStatistics>
         </Col>
       </Row>
       <Row className="gutter-row" gutter={20}>
@@ -110,12 +111,12 @@ const Content = memo(() => {
             <div className="header">
               <div className="title">
                 <h3>访问量统计</h3>
-                <SyncOutlined />
+                <SyncOutlined/>
               </div>
               <small>最近7天用户访问量</small>
             </div>
             <div className="page-view">
-              <PageView></PageView>
+              <PageView homeInfo={homeInfo}></PageView>
             </div>
           </Card>
         </Col>

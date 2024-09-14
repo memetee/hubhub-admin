@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState,  } from "react";
 import {
   AppstoreOutlined,
   ContainerOutlined,
@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Menu } from "antd";
 import { MenuWrap } from "./style";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 const items = [
   { key: "/home", icon: <PieChartOutlined />, label: "首页" },
   { key: "/carousel", icon: <DesktopOutlined />, label: "轮播图管理" },
@@ -27,6 +27,7 @@ const items = [
 const MenuCpn = memo((props) => {
   const [collapsed] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation()
 
   const handleMenuClick = (e) => {
     navigate(e.key, {replace: true});
@@ -34,7 +35,7 @@ const MenuCpn = memo((props) => {
   return (
     <MenuWrap>
       <Menu
-        defaultSelectedKeys={["/home"]}
+        defaultSelectedKeys={[location.pathname]}
         mode="inline"
         theme="dark"
         inlineCollapsed={collapsed}

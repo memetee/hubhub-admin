@@ -4,6 +4,9 @@ export const ContentWrap = styled.div`
   padding: 20px;
   flex: 1;
   background-color: #fff;
+  .task-title {
+    cursor: pointer;
+  }
   .react_for_echarts {
     padding-bottom: 10px;
     box-sizing: border-box;
@@ -44,3 +47,4 @@ export const ContentWrap = styled.div`
     }
   }
 `;
+

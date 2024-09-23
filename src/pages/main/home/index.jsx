@@ -1,18 +1,25 @@
 import React, { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ContentWrap } from "./style";
-import { Col, Row, Timeline, Card } from "antd";
+import { Col, Row, Card } from "antd";
 import Overview from "./components/overview/index";
 import DynamicStatistics from "./components/echarts/dynamic_statistics";
-import b1 from "assets/img/b1.jpg";
 import PageView from "./components/echarts/page_view";
 import { SyncOutlined } from "@ant-design/icons";
-import { getHomeInfo } from "../../../services/fetch";
+import { getHomeInfo, updateTask } from "../../../services/fetch";
+import TaskList from "./components/taskList";
+import TaskDetail from './components/taskDetail';
 const Content = memo(() => {
   const navigate = useNavigate();
   const [homeInfo, setHomeInfo] = useState({});
   const [loading, setLoading] = useState(true);
+  const [showDetail, setShowDetail] = useState(false);
+  const [taskDetail, setTaskDetail] = useState('')
   useEffect(() => {
+    getHomeInfoData();
+  }, []);
+
+  function getHomeInfoData() {
     getHomeInfo()
       .then((res) => {
         setHomeInfo(res);
@@ -21,28 +28,25 @@ const Content = memo(() => {
       .catch(() => {
         navigate("/login");
       });
-  }, [navigate]);
-  const taskList = [
-    {
-      type: "success",
-      title: "任务1",
-      children: "新版本迭代会",
-      color: "green",
-    },
-    {
-      type: "success",
-      title: "任务2",
-      children: "完成网站设计初版",
-      color: "green",
-    },
-    { type: "reject", title: "任务3", children: "联调接口", color: "red" },
-    {
-      type: "doing",
-      title: "任务4",
-      children: "登录功能设计",
-      color: "#108ee9",
-    },
-  ];
+  }
+
+  function handleShowDetail() {
+    setShowDetail(!showDetail)
+  }
+
+  function handleStatus(status, id) {
+    updateTask({status, id}).then(res => {
+      getHomeInfoData();
+    }).catch(err => {
+      console.log('err', err);
+    })
+  }
+
+  function clickTask(item) {
+    setTaskDetail({title: item.title, content: item.content});
+    handleShowDetail();
+  }
+
   return (
     !loading && <ContentWrap>
       <Row justify="space-between" gutter={20} className="gutter-row">
@@ -55,16 +59,7 @@ const Content = memo(() => {
       </Row>
       <Row className="gutter-row" gutter={20}>
         <Col span={8}>
-          <Card bordered={true} className="task">
-            <div className="header">
-              <div className="title">
-                <h3>任务</h3>
-                <SyncOutlined />
-              </div>
-              <small>10个已经完成，2个待完成，1个正在进行中</small>
-            </div>
-            <Timeline items={taskList} />
-          </Card>
+          <TaskList homeInfo={homeInfo} updateTask={handleStatus} clickTask={clickTask}></TaskList>
         </Col>
         <Col span={8}>
           <Card bordered={true} className="message">
@@ -76,33 +71,7 @@ const Content = memo(() => {
               <small>&nbsp;</small>
             </div>
             <ul className="message-list">
-              <li className="message-list-item">
-                <div className="avatar-wrap">
-                  <img src={b1} className="avatar" alt="avatar" />
-                </div>
-                <div className="content-wrap">
-                  <h4>鸣人</h4>
-                  <p className="content">终于当上火影了！</p>
-                </div>
-              </li>
-              <li className="message-list-item">
-                <div className="avatar-wrap">
-                  <img src={b1} className="avatar" alt="avatar" />
-                </div>
-                <div className="content-wrap">
-                  <h4>鸣人</h4>
-                  <p className="content">终于当上火影了！</p>
-                </div>
-              </li>
-              <li className="message-list-item">
-                <div className="avatar-wrap">
-                  <img src={b1} className="avatar" alt="avatar" />
-                </div>
-                <div className="content-wrap">
-                  <h4>鸣人</h4>
-                  <p className="content">终于当上火影了！</p>
-                </div>
-              </li>
+              TODO
             </ul>
           </Card>
         </Col>
@@ -121,6 +90,7 @@ const Content = memo(() => {
           </Card>
         </Col>
       </Row>
+      <TaskDetail showDetail={showDetail} handleShowDetail={handleShowDetail} taskDetail={taskDetail}></TaskDetail>
     </ContentWrap>
   );
 });

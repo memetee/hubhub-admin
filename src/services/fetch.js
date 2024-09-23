@@ -97,3 +97,27 @@ export function addBanner(files) {
     return Promise.reject(err);
   });
 }
+
+// 创建任务
+export function createTask(payload) {
+  return service.post('/task/create', payload).then(res => {
+    if (res.status === 200) {
+      return Promise.resolve(res);
+    }
+    return Promise.reject(res);
+  }).catch(err => {
+    return Promise.reject(err);
+  })
+}
+
+// 更新任务
+export function updateTask(payload) {
+  return service.post('/task/update', payload).then(res => {
+    if (res.status === 200) {
+      return Promise.resolve(res);
+    }
+    return Promise.reject(res);
+  }).catch(err => {
+    return Promise.reject(err);
+  })
+}

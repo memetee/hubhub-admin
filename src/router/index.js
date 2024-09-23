@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Suspense} from "react";
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import AuthRoute from "./AuthRoute";
 const Login = React.lazy(() => import("@/pages/login/index"));
@@ -6,12 +6,21 @@ const SignUp = React.lazy(() => import("@/pages/signup/index"));
 const Home = React.lazy(() => import("@/pages/main/home"));
 const Carousel = React.lazy(() => import("@/pages/main/carousel"));
 const Dynamic = React.lazy(() => import("@/pages/main/dynamic"));
+const TaskManage = React.lazy(() => import('@/pages/main/admin_menu/task_manage'))
 const Error = React.lazy(() => import('@/pages/error/index'))
 const Main = React.lazy(() => import('@/pages/main/index'))
+const Loading = React.lazy(() => import('components/loading'));
+
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <AuthRoute><Main /></AuthRoute>,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AuthRoute>
+          <Main />
+        </AuthRoute>
+      </Suspense>
+    ),
     errorElement: <Error />,
     children: [
       {
@@ -20,37 +29,62 @@ const router = createBrowserRouter([
       },
       {
         path: 'home',
-        element: <Home />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Home />
+          </Suspense>
+        )
       },
       {
         path: "carousel",
-        element: <Carousel />
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Carousel />
+          </Suspense>
+        )
       },
       {
-        path: "/dynamic",
-        element: <Dynamic />
+        path: "dynamic",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Dynamic />
+          </Suspense>
+        )
       },
       {
-        path: "/roles",
-        element: <Home />
-      },
-      {
-        path: "/tasks",
-        element: <Home />
-      },
-      {
-        path: "/option10",
-        element: <Home />
-      },
+        path: "admin-menu",
+        children: [
+          {
+            path: 'task-manage',
+            element: (
+              <Suspense fallback={<Loading />}>
+                <TaskManage />
+              </Suspense>
+            )
+          },
+        ]
+      }
     ]
   },
   {
     path: "/login",
-    element:<AuthRoute type="login"><Login /></AuthRoute>,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AuthRoute type="login">
+          <Login />
+        </AuthRoute>
+      </Suspense>
+    )
   },
   {
     path: "/signup",
-    element: <AuthRoute type="signup"><SignUp /></AuthRoute>,
+    element: (
+      <Suspense fallback={<Loading />}>
+        <AuthRoute type="signup">
+          <SignUp />
+        </AuthRoute>
+      </Suspense>
+    )
   },
 ]);
 

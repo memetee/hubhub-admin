@@ -26,7 +26,7 @@ const Content = memo(() => {
         setLoading(false);
       })
       .catch(() => {
-        navigate("/login");
+        navigate("/admin/login");
       });
   }
 

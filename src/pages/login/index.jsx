@@ -14,7 +14,7 @@ const Login = memo(() => {
     userLogin(value).then(res => {
       // 设置token
       setStore('token', res.token);
-      navigate('/home', {replace: true});
+      navigate('/admin/home', {replace: true});
     }).catch(err => {})
   }
   return (
@@ -22,7 +22,7 @@ const Login = memo(() => {
       <div className="container">
         <h2 className="title">管理员登录</h2>
         <RegistryLoginInput submitType="登录" clickSubmit={clickSubmit}></RegistryLoginInput>
-        <Link className="to-signup" to="/signup" state={{ some: "value" }} >没有账号？去注册</Link>
+        <Link className="to-signup" to="/admin/signup" state={{ some: "value" }} >没有账号？去注册</Link>
       </div>
     </LoginWrapper>
   );

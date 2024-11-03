@@ -3,17 +3,27 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import AuthRoute from "./AuthRoute";
 const Login = React.lazy(() => import("@/pages/login/index"));
 const SignUp = React.lazy(() => import("@/pages/signup/index"));
-const Home = React.lazy(() => import("@/pages/main/home"));
+const AdminHome = React.lazy(() => import("@/pages/main/home"));
 const Carousel = React.lazy(() => import("@/pages/main/carousel"));
 const Dynamic = React.lazy(() => import("@/pages/main/dynamic"));
 const TaskManage = React.lazy(() => import('@/pages/main/admin_menu/task_manage'))
 const Error = React.lazy(() => import('@/pages/error/index'))
 const Main = React.lazy(() => import('@/pages/main/index'))
 const Loading = React.lazy(() => import('components/loading'));
+const Home = React.lazy(() => import('@/pages/home'));
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element: (
+      <Suspense fallback={<Loading />}>
+        <Home></Home>
+      </Suspense>
+    ),
+    errorElement: <Error />
+  },
+  {
+    path: '/admin',
     element: (
       <Suspense fallback={<Loading />}>
         <AuthRoute>
@@ -21,20 +31,20 @@ const router = createBrowserRouter([
         </AuthRoute>
       </Suspense>
     ),
-    errorElement: <Error />,
     children: [
       {
         path: '',
-        element: <Navigate to="/home" />
+        element: <Navigate to="/admin/home" />
       },
       {
         path: 'home',
         element: (
           <Suspense fallback={<Loading />}>
-            <Home />
+            <AdminHome />
           </Suspense>
         )
       },
+
       {
         path: "carousel",
         element: (
@@ -52,7 +62,7 @@ const router = createBrowserRouter([
         )
       },
       {
-        path: "admin-menu",
+        path: "menu",
         children: [
           {
             path: 'task-manage',
@@ -67,25 +77,21 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: "/login",
+    path: "/admin/login",
     element: (
       <Suspense fallback={<Loading />}>
-        <AuthRoute type="login">
-          <Login />
-        </AuthRoute>
+        <Login /> 
       </Suspense>
     )
   },
   {
-    path: "/signup",
+    path: "/admin/signup",
     element: (
       <Suspense fallback={<Loading />}>
-        <AuthRoute type="signup">
-          <SignUp />
-        </AuthRoute>
+        <SignUp />
       </Suspense>
     )
-  },
+  }
 ]);
 
 export default router;

@@ -18,7 +18,7 @@ const Login = memo(() => {
   const clickSubmit = (value) => {
     userRegistry(value).then(res => {
       message.success(res.message);
-      navigate('/login', {replace: true})
+      navigate('/admin/login', {replace: true})
     }).catch(err=>{})
   }
   return (
@@ -26,7 +26,7 @@ const Login = memo(() => {
       <div className="container">
         <h2 className="title">注册账号</h2>
         <RegistryLoginInput submitType="注册" clickSubmit={clickSubmit}></RegistryLoginInput>
-        <Link className="to-login" to="/login">已注册？去登录</Link>
+        <Link className="to-login" to="/admin/login">已注册？去登录</Link>
       </div>
     </LoginWrapper>
   );

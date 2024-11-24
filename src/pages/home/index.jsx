@@ -2,7 +2,6 @@ import React, { memo, useEffect, useState } from "react";
 import { HomeWrapper } from "./style";
 import homeLogo from '../../assets/img/home_logo.png'
 const Login = memo(() => {
-  const [opacity, setOpacity] = useState(0.3);
   return (
     <HomeWrapper>
       <header className="header"></header>

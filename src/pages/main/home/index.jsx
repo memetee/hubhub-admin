@@ -1,5 +1,4 @@
 import React, { memo, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { ContentWrap } from "./style";
 import { Col, Row, Card } from "antd";
 import Overview from "./components/overview/index";
@@ -10,7 +9,6 @@ import { getHomeInfo, updateTask } from "../../../services/fetch";
 import TaskList from "./components/taskList";
 import TaskDetail from './components/taskDetail';
 const Content = memo(() => {
-  const navigate = useNavigate();
   const [homeInfo, setHomeInfo] = useState({});
   const [loading, setLoading] = useState(true);
   const [showDetail, setShowDetail] = useState(false);
@@ -25,9 +23,9 @@ const Content = memo(() => {
         setHomeInfo(res);
         setLoading(false);
       })
-      .catch(() => {
-        navigate("/admin/login");
-      });
+      .catch(err=>{
+        console.log('获取home页面错误')
+      })
   }
 
   function handleShowDetail() {

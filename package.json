@@ -26,8 +26,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start:dev": "cross-env REACT_APP_BASE_URL=http://localhost:8887 craco start",
-    "start:prod": "cross-env REACT_APP_BASE_URL=https://www.yunduanhub.com  craco start",
+    "dev": "cross-env NODE_ENV=dev craco start",
+    "uat": "cross-env NODE_ENV=uat craco start",
+    "prod": "cross-env NODE_ENV=prod craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
@@ -53,7 +54,7 @@
   "devDependencies": {
     "@craco/craco": "^7.1.0",
     "antd": "^5.20.2",
-    "craco-less": "^3.0.1",
-    "cross-env": "^7.0.3"
+    "craco-css-modules": "^1.0.6",
+    "cross-env": "^6.0.3"
   }
 }

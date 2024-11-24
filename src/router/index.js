@@ -1,6 +1,5 @@
 import React, {Suspense} from "react";
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import AuthRoute from "./AuthRoute";
 const Login = React.lazy(() => import("@/pages/login/index"));
 const SignUp = React.lazy(() => import("@/pages/signup/index"));
 const AdminHome = React.lazy(() => import("@/pages/main/home"));
@@ -26,9 +25,7 @@ const router = createBrowserRouter([
     path: '/admin',
     element: (
       <Suspense fallback={<Loading />}>
-        <AuthRoute>
-          <Main />
-        </AuthRoute>
+        <Main />
       </Suspense>
     ),
     children: [
@@ -40,11 +37,26 @@ const router = createBrowserRouter([
         path: 'home',
         element: (
           <Suspense fallback={<Loading />}>
-            <AdminHome />
+              <AdminHome />
           </Suspense>
         )
       },
-
+      {
+        path: "login",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Login /> 
+          </Suspense>
+        )
+      },
+      {
+        path: "signup",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <SignUp />
+          </Suspense>
+        )
+      },
       {
         path: "carousel",
         element: (
@@ -76,22 +88,6 @@ const router = createBrowserRouter([
       }
     ]
   },
-  {
-    path: "/admin/login",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <Login /> 
-      </Suspense>
-    )
-  },
-  {
-    path: "/admin/signup",
-    element: (
-      <Suspense fallback={<Loading />}>
-        <SignUp />
-      </Suspense>
-    )
-  }
 ]);
 
 export default router;

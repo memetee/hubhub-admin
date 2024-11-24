@@ -1,8 +1,16 @@
 import axios from 'axios';
 import { getStore } from '../util/localstorege';
 import {message} from 'antd';
+let baseURL = '';
+if (process.env.NODE_ENV === 'dev') {
+  baseURL = 'http://localhost:8887/'
+} else if (process.env.NODE_ENV === 'uat') {
+  baseURL = 'http://www.yunduanhub.com/'
+} else if (process.env.NODE_ENV === 'prod') {
+  baseURL = 'https://www.yunduanhub.com/'
+}
 const service = axios.create({
-  baseURL: process.env.REACT_APP_BASE_URL,
+  baseURL,
   timeout: 3 * 1000
 })
 service.interceptors.request.use(config => {
@@ -17,6 +25,13 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(response => {
   return response.data;
 }, error => {
+
+  // token验证失败
+  if (error.response.status === 401) {
+    window.location.href = '/admin/login';
+    return;
+  }
+
   if (error && error.response) {
     message.error(error.response.data.message);
   } else {

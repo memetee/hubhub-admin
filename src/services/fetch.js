@@ -46,6 +46,7 @@ export function getBannerInfo() {
     return Promise.reject(err);
   })
 }
+
 export function uploadBanner(files, id) {
   const formData = new FormData();
 
@@ -77,7 +78,7 @@ export function deleteBanner(id) {
     return Promise.reject(err);
   })
 }
-// 删除轮播图
+// 新增轮播图
 export function addBanner(files) {
   const formData = new FormData();
 

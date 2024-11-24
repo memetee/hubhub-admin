@@ -3,16 +3,17 @@ import { getStore } from '../util/localstorege';
 import {message} from 'antd';
 let baseURL = '';
 if (process.env.NODE_ENV === 'dev') {
-  baseURL = 'http://localhost:8887/'
+  baseURL = 'http://localhost:8887/api'
 } else if (process.env.NODE_ENV === 'uat') {
-  baseURL = 'http://www.yunduanhub.com/'
-} else if (process.env.NODE_ENV === 'prod') {
-  baseURL = 'https://www.yunduanhub.com/'
+  baseURL = 'http://www.yunduanhub.com/api'
+} else {
+  baseURL = 'https://www.yunduanhub.com/api'
 }
 const service = axios.create({
   baseURL,
   timeout: 3 * 1000
 })
+console.log('看看咯', service)
 service.interceptors.request.use(config => {
   config.headers = {
     Authorization: getStore('token'),

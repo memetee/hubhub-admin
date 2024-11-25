@@ -14,6 +14,13 @@ const service = axios.create({
   timeout: 3 * 1000
 })
 service.interceptors.request.use(config => {
+  // 权限判断
+  if (getStore('token')) {
+    message.error('无权限～', 0.8).then(res => {
+      window.location.href = '/admin/login';
+    })
+    return;
+  }
   config.headers = {
     Authorization: getStore('token'),
   }
@@ -26,8 +33,10 @@ service.interceptors.response.use(response => {
   return response.data;
 }, error => {
   // token验证失败
-  if (error?.response?.status === 401 || !error.response) {
-    window.location.href = '/admin/login';
+  if (error?.response?.status === 401) {
+    message.error('无权限～', 0.8).then(res => {
+      window.location.href = '/admin/login';
+    })
     return;
   }
 

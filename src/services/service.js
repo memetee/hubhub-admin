@@ -15,7 +15,7 @@ const service = axios.create({
 })
 service.interceptors.request.use(config => {
   // 权限判断
-  if (getStore('token')) {
+  if (!getStore('token')) {
     message.error('无权限～', 0.8).then(res => {
       window.location.href = '/admin/login';
     })

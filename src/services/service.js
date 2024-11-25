@@ -13,7 +13,6 @@ const service = axios.create({
   baseURL,
   timeout: 3 * 1000
 })
-console.log('看看咯', service)
 service.interceptors.request.use(config => {
   config.headers = {
     Authorization: getStore('token'),
@@ -26,9 +25,8 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(response => {
   return response.data;
 }, error => {
-
   // token验证失败
-  if (error.response.status === 401) {
+  if (error?.response?.status === 401 || !error.response) {
     window.location.href = '/admin/login';
     return;
   }

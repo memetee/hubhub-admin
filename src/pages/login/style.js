@@ -7,7 +7,7 @@ export const LoginWrapper = styled.div`
   left: 0;
   right: 0;
   background-image: url(${background});
-  transition: opacity 1s ease-in-out;
+  transition: opacity 0.7s ease-in-out;
   opacity: ${(props) => props.opacity};
   .container {
     position: relative;

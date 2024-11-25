@@ -23,9 +23,7 @@ const Content = memo(() => {
         setHomeInfo(res);
         setLoading(false);
       })
-      .catch(err=>{
-        console.log('获取home页面错误')
-      })
+      .catch(err=>{})
   }
 
   function handleShowDetail() {
@@ -35,9 +33,7 @@ const Content = memo(() => {
   function handleStatus(status, id) {
     updateTask({status, id}).then(res => {
       getHomeInfoData();
-    }).catch(err => {
-      console.log('err', err);
-    })
+    }).catch(err => {})
   }
 
   function clickTask(item) {

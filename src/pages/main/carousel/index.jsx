@@ -17,9 +17,7 @@ const CarouselCpn = memo((props) => {
   useEffect(() => {
     getBannerInfo().then((res) => {
       setBannerList(res.list);
-    }).catch((err) => {
-      console.log('轮播图获取数据错误', err)
-    })
+    }).catch((err) => {})
   }, [updateList]);
 
   function updateImg() {

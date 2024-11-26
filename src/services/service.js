@@ -14,8 +14,9 @@ const service = axios.create({
   timeout: 3 * 1000
 })
 service.interceptors.request.use(config => {
+  const pathname = window.location.pathname
   // 权限判断
-  if (!getStore('token')) {
+  if (pathname !== '/admin/login' && !getStore('token')) {
     message.error('无权限～', 0.8).then(res => {
       window.location.href = '/admin/login';
     })

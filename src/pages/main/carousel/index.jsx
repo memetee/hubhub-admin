@@ -17,7 +17,9 @@ const CarouselCpn = memo((props) => {
   useEffect(() => {
     getBannerInfo().then((res) => {
       setBannerList(res.list);
-      setCurrent(0);
+      if (res.list.length) {
+        setCurrent(0);
+      }
     }).catch((err) => {})
   }, [updateList]);
 
@@ -50,7 +52,7 @@ const CarouselCpn = memo((props) => {
   }
 
   function deleteImg() {
-    if (current === null) {
+    if (!bannerList || !bannerList.length) {
       message.warning('当前图片为空');
       return;
     }

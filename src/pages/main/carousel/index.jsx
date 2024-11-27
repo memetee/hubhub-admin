@@ -17,6 +17,7 @@ const CarouselCpn = memo((props) => {
   useEffect(() => {
     getBannerInfo().then((res) => {
       setBannerList(res.list);
+      setCurrent(0);
     }).catch((err) => {})
   }, [updateList]);
 
